@@ -1,77 +1,69 @@
-;; -*- mode: emacs-lisp -*-
-;; Simple .emacs configuration
-
-;; ---------------------
-;; -- Global Settings --
-;; ---------------------
-(add-to-list 'load-path "~/.emacs.d")
-(require 'cl)
+(package-initialize)
+;; IDO-mode
 (require 'ido)
-(require 'ffap)
-(require 'uniquify)
-(require 'ansi-color)
-(require 'recentf)
-(require 'linum)
-(require 'smooth-scrolling)
-(require 'whitespace)
-(require 'dired-x)
-(require 'compile)
 (ido-mode t)
+
+;; Init MELPA
+(require 'package)
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+;; Smex
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+;; The toolbar, menu bar, and scroll bar are all turned off.
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
 (menu-bar-mode -1)
-(normal-erase-is-backspace-mode 1)
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(setq column-number-mode t)
-(setq inhibit-startup-message t)
-(setq save-abbrevs nil)
-(setq show-trailing-whitespace t)
-(setq suggest-key-bindings t)
-(setq vc-follow-symlinks t)
+(show-paren-mode 1)
+(fset 'yes-or-no-p 'y-or-n-p)
+(blink-cursor-mode t)
+(set-default-font "Inconsolata-15")
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit autoface-default :strike-through nil :underline nil :slant normal :weight normal :height 120 :width normal :family "monaco"))))
- '(column-marker-1 ((t (:background "red"))))
- '(diff-added ((t (:foreground "cyan"))))
- '(flymake-errline ((((class color) (background light)) (:background "Red"))))
- '(font-lock-comment-face ((((class color) (min-colors 8) (background light)) (:foreground "red"))))
- '(fundamental-mode-default ((t (:inherit default))))
- '(highlight ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
- '(isearch ((((class color) (min-colors 8)) (:background "yellow" :foreground "black"))))
- '(linum ((t (:foreground "black" :weight bold))))
- '(region ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
- '(secondary-selection ((((class color) (min-colors 8)) (:background "gray" :foreground "cyan"))))
- '(show-paren-match ((((class color) (background light)) (:background "black"))))
- '(vertical-border ((t nil)))
-)
+(require 'uniquify)
 
-;; ------------
-;; -- Macros --
-;; ------------
-(load "defuns-config.el")
-(fset 'align-equals "\C-[xalign-regex\C-m=\C-m")
-(global-set-key "\M-=" 'align-equals)
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c;" 'comment-or-uncomment-region)
-(global-set-key "\M-n" 'next5)
-(global-set-key "\M-p" 'prev5)
-(global-set-key "\M-o" 'other-window)
-(global-set-key "\M-i" 'back-window)
-(global-set-key "\C-z" 'zap-to-char)
-(global-set-key "\C-h" 'backward-delete-char)
-(global-set-key "\M-d" 'delete-word)
-(global-set-key "\M-h" 'backward-delete-word)
-(global-set-key "\M-u" 'zap-to-char)
+;; The saveplace library saves the location of the point when you kill a buffer and returns to it next time you visit the associated file.
+(require 'saveplace)
+(setq-default save-place t)
+(setq save-place-file "~/.emacs.d/saved-places")
 
-;; ---------------------------
-;; -- JS Mode configuration --
-;; ---------------------------
-(load "js-config.el")
-(add-to-list 'load-path "~/.emacs.d/jade-mode") ;; github.com/brianc/jade-mode
-(require 'sws-mode)
-(require 'jade-mode)
-(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+;; Dynamic Abbreviations are one of the coolest functions in Emacs.
+(global-set-key (kbd "C-<tab>") 'dabbrev-expand)
+(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
+
+;; Ibuffer Mode
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(autoload 'ibuffer "ibuffer" "List buffers." t)
+
+;; Rake files are ruby, too, as are gemspecs, rackup files, and gemfiles.
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile$" . ruby-mode))
+
+;; Inf-ruby
+(autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
+
+;; YAML-mode
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+;; optional key binding
+(defun copy-line (&optional arg)
+  "Do a kill-line but copy rather than kill.  This function directly calls
+    kill-line, so see documentation of kill-line for how to use it including prefix
+    argument and relevant variables.  This function works by temporarily making the
+    buffer read-only."
+  (interactive "P")
+  (let ((buffer-read-only t)
+	(kill-read-only-ok t))
+    (kill-line arg)))
+;; optional key binding
+(global-set-key "\C-c\C-k" 'copy-line)
+

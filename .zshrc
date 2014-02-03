@@ -41,7 +41,7 @@ ZSH_THEME="nebirhos"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git debian ruby rvm)
+plugins=(git debian ruby rvm tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -50,3 +50,4 @@ source $ZSH/oh-my-zsh.sh
 
 # Load RVM into a shell session *as a function*
 # [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
+[[ -s "/home/user/.rvm/scripts/rvm" ]] && source "/home/user/.rvm/scripts/rvm"

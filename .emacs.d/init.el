@@ -138,37 +138,14 @@ scroll-preserve-screen-position 1)
   :bind (("C-c g" . magit-status)))
 
 ;; JS config
-(use-package web-mode
-  :ensure t
-  :config
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-attr-indent-offset 2)
-  (setq web-mode-attr-value-indent-offset 2)
-  (setq web-mode-indentless-elements 2)
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-sql-indent-offset 2)
-  (setq web-mode-script-padding 2)
-  (setq web-mode-style-padding 2))
-
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-
-;; for better jsx syntax-highlighting in web-mode
-;; - courtesy of Patrick @halbtuerke
-;; (defadvice web-mode-highlight-part (around tweak-jsx activate)
-;;   (if (equal web-mode-content-type "jsx")
-;;     (let ((web-mode-enable-part-face nil))
-;;       ad-do-it)
-;;     ad-do-it))
-
 (use-package js2-mode
   :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-hook 'js2-mode-hook
             (lambda ()
-              (setq js2-basic-offset 2))))
+              (setq js2-basic-offset 2)))
+  (add-hook 'js2-mode-hook #'js2-imenu-extras-mode))
 
 (use-package json-mode
   :ensure t
@@ -453,16 +430,6 @@ scroll-preserve-screen-position 1)
   :config
   (add-hook 'haskell-mode-hook 'intero-mode))
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (yas-global-mode 1))
-
-(use-package helm-c-yasnippet
-  :ensure t
-  :config
-  (global-set-key (kbd "C-c y") 'helm-yas-complete))
-
 (use-package sass-mode
   :ensure t
   :config
@@ -532,7 +499,7 @@ scroll-preserve-screen-position 1)
     ("~/todo/day.org" "~/todo/2018.org" "~/projects/gs/jira/gs1081.org" "~/projects/gs/jira/gs-1012.org")))
  '(package-selected-packages
    (quote
-    (stylus-mode org-pomodoro web-beautify octave-mode helm-c-yasnippet yasnippet diff-hl rainbow-mode rainbow-delimiters restclient alchemist-mode alchemist monokai-theme emacsql-psql elm-mode zeal-at-point helm-dash org-jira jira-markup-mode slack hindent scss-mode sass-mode markdown-mode markdown git-gutter anzu flycheck-elm docker dockerfile-mode railscasts-reloaded-theme railscasts-theme anti-zenburn-theme nodejs-repl moz haskell-mode slim-mode zenburn-theme yaml-mode web-mode w3m use-package smartparens ruby-refactor ruby-block rubocop robe restclient-test projectile-rails multiple-cursors multi-term markdown-preview-mode magit log4j-mode json-mode js2-mode ivy-hydra highlight-indentation helm-projectile helm-ag google-translate flycheck fill-column-indicator discover counsel company-web ace-window)))
+    (stylus-mode org-pomodoro web-beautify octave-mode diff-hl rainbow-mode rainbow-delimiters restclient alchemist-mode alchemist monokai-theme emacsql-psql elm-mode zeal-at-point helm-dash org-jira jira-markup-mode slack hindent scss-mode sass-mode markdown-mode markdown git-gutter anzu flycheck-elm docker dockerfile-mode railscasts-reloaded-theme railscasts-theme anti-zenburn-theme nodejs-repl moz haskell-mode slim-mode zenburn-theme yaml-mode w3m use-package smartparens ruby-refactor ruby-block rubocop robe restclient-test projectile-rails multiple-cursors multi-term markdown-preview-mode magit log4j-mode json-mode js2-mode ivy-hydra highlight-indentation helm-projectile helm-ag google-translate flycheck fill-column-indicator discover counsel company-web ace-window)))
  '(sp-ignore-modes-list (quote (minibuffer-inactive-mode shell-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

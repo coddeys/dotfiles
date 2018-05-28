@@ -19,7 +19,7 @@
 ;; Enable use-package
 (eval-when-compile
   (require 'use-package))
-(require 'diminish)
+;; (require 'diminish)			;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Squeeze all configs in one file

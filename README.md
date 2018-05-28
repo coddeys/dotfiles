@@ -8,8 +8,8 @@ cd $HOME
 git clone https://github.com/coddeys/dotfiles.git .dotfies
 ln -sb ~/.dotfiles/.tmux.conf .
 ln -sb ~/.dotfiles/.zshrc .
-ln -s ~/.dotfiles/.emacs.d/init.el .emacs.d/init.el
-ln -s ~/.dotfiles/.xmonad/xmonad.hs .xmonad/xmonad.hs
-ln -s ~/.dotfiles/.Xmodmap .Xmodmap
-ln -s ~/.dotfiles/.xinitrc .xinitrc
+ln -sb ~/.dotfiles/.emacs.d/init.el .emacs.d/init.el
+ln -sb ~/.dotfiles/.xmonad/xmonad.hs .xmonad/xmonad.hs
+ln -sb ~/.dotfiles/.Xmodmap .Xmodmap
+ln -sb ~/.dotfiles/.xinitrc .xinitrc
 ```

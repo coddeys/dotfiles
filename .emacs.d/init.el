@@ -415,11 +415,11 @@ scroll-preserve-screen-position 1)
   :ensure t
   :config
   (add-to-list 'company-backends 'company-elm)
-  (setenv "PATH" (concat (getenv "PATH") ":/home/dima/npm-global/bin"))
-  (setq exec-path (append exec-path '("/home/dima/npm-global/bin")))
-  (setenv "PATH" (concat (getenv "PATH") ":/home/dima/.local/bin"))
-  (setq exec-path (append exec-path '("/home/dima/.local/bin")))
-  (setq  elm-format-command "elm-format-0.18"))
+  (setenv "PATH" (concat (getenv "HOME") "/.npm-global/bin:" (getenv "PATH")))
+  (setq exec-path (cons (concat (getenv "HOME") "/.npm-global/bin") exec-path))
+  (setenv "PATH" (concat (getenv "HOME") "/.local/bin:" (getenv "PATH")))
+  (setq exec-path (cons (concat (getenv "HOME") "/.local/bin") exec-path))
+  (setq  elm-format-command "elm-format"))
 
 (use-package hindent
   :ensure t)

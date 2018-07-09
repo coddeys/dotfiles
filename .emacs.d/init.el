@@ -506,7 +506,10 @@ scroll-preserve-screen-position 1)
 
 ;; nix-mode
 (use-package nix-mode
-  :ensure t)
+  :ensure t
+  :config
+  (setenv "PATH" (concat (getenv "HOME") "/.nix-profile/bin:" (getenv "PATH")))
+  (setq exec-path (cons (concat (getenv "HOME") "/.nix-profile/bin") exec-path)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

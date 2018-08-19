@@ -145,7 +145,7 @@ scroll-preserve-screen-position 1)
   (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-mode))
   (add-hook 'js2-mode-hook
             (lambda ()
-              (setq js2-basic-offset 4)))
+              (setq js2-basic-offset 2)))
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
   (add-hook 'js2-mode-hook #'indium-interaction-mode)
@@ -368,7 +368,7 @@ scroll-preserve-screen-position 1)
   (global-set-key (kbd "C-x b") 'helm-mini)
   (setq helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match    t)
-  ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
   )
 
 (use-package google-translate

@@ -13,4 +13,7 @@ ln -sb ~/.dotfiles/.xmonad/xmonad.hs .xmonad/xmonad.hs
 ln -sb ~/.dotfiles/.Xmodmap .Xmodmap
 ln -sb ~/.dotfiles/.xinitrc .xinitrc
 ln -sb ~/.dotfiles/termite/config ~/.config/termite/config
+
+
+
 ```
